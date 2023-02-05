@@ -18,7 +18,7 @@ Item _$ItemFromJson(Map<String, dynamic> json) => Item(
       timeRead: json['time_read'] as String,
       timeFavorited: json['time_favorited'] as String,
       sortId: json['sort_id'] as int,
-      resolvedTitle: json['resolved_title'] as String,
+      resolvedTitle: json['resolved_title'] as String?,
       resolvedUrl: json['resolved_url'] as String,
       excerpt: json['excerpt'] as String,
       isAaricle: json['is_article'] as String,

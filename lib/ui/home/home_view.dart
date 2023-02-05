@@ -26,16 +26,14 @@ class HomeView extends HookConsumerWidget {
               appBar: AppBar(
                 title: const Text('getpocket'),
               ),
-              body: token == null ? LoginView() : MainView()
+              body: token == null ? const LoginView() : const MainView()
             );
           },
           error: (error, stackTrace) => Scaffold(
             appBar: AppBar(
               title: const Text('getpocket'),
             ),
-            body: Container(
-              child: Text(error.toString()),
-            ),
+            body: Text(error.toString()),
           ),
         );
   }

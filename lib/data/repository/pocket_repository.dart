@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getpocket/data/model/item.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -92,7 +92,7 @@ class PocketRepository {
     final uri = Uri.https('getpocket.com', '/v3/get', params);
     var res = await client.get(uri, headers: headers);
     if (res.statusCode < 300) {
-      final list = json.decode(res.body)['list'];;
+      final list = json.decode(res.body)['list'];
       final items = list.values
           .map((value) => Item.fromJson(value))
           .whereType<Item>()
@@ -105,10 +105,12 @@ class PocketRepository {
 
   Future<bool> archivePocketItems(List<Item> items, String token) async {
     final actions = <Map<String, String>>[];
-    items.forEach((e) => actions.add({
+    for (var e in items) {
+      actions.add({
           'action': 'archive',
           'item_id': e.itemId,
-        }));
+        });
+    }
     final params = {
       'actions': json.encode(actions),
       'consumer_key': consumerKey,
