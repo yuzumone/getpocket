@@ -107,9 +107,9 @@ class PocketRepository {
     final actions = <Map<String, String>>[];
     for (var e in items) {
       actions.add({
-          'action': 'archive',
-          'item_id': e.itemId,
-        });
+        'action': 'archive',
+        'item_id': e.itemId,
+      });
     }
     final params = {
       'actions': json.encode(actions),

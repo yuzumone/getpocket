@@ -14,8 +14,7 @@ class LoginView extends HookConsumerWidget {
         padding: const EdgeInsets.all(16),
         child: ElevatedButton(
           onPressed: () async {
-            final preferenceRepository =
-                ref.read(prefeneceRepositoryProvider);
+            final preferenceRepository = ref.read(prefeneceRepositoryProvider);
             final pocketRepository = ref.read(pocketRepositoryProvider);
             final token = await pocketRepository.getAccessToken();
             await preferenceRepository.setToken(token);

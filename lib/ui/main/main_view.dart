@@ -31,8 +31,7 @@ class MainView extends HookConsumerWidget {
               },
             );
           },
-          error: (error, stackTrace) =>
-              Text(error.toString()),
+          error: (error, stackTrace) => Text(error.toString()),
           loading: () => const Center(child: CircularProgressIndicator()),
         );
   }
