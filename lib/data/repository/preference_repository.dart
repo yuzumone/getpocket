@@ -1,5 +1,5 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:getpocket/data/local/app_shared_preferences.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final prefeneceRepositoryProvider = Provider((ref) => PreferenceRepository(
     appSharedPreferences: ref.read(appSharedPrefenrecesProvider)));

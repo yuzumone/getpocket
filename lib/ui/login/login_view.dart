@@ -8,21 +8,18 @@ class LoginView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container(
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          child: ElevatedButton(
-            onPressed: () async {
-              final preferenceRepository =
-                  ref.read(prefeneceRepositoryProvider);
-              final pocketRepository = ref.read(pocketRepositoryProvider);
-              final token = await pocketRepository.getAccessToken();
-              await preferenceRepository.setToken(token);
-            },
-            child: const Text('Login'),
-          ),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: ElevatedButton(
+          onPressed: () async {
+            final preferenceRepository = ref.read(prefeneceRepositoryProvider);
+            final pocketRepository = ref.read(pocketRepositoryProvider);
+            final token = await pocketRepository.getAccessToken();
+            await preferenceRepository.setToken(token);
+          },
+          child: const Text('Login'),
         ),
       ),
     );

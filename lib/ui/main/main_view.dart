@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:getpocket/data/model/item.dart';
 import 'package:getpocket/data/repository/pocket_repository.dart';
 import 'package:getpocket/data/repository/preference_repository.dart';
-import 'package:getpocket/ui/home/home_view.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -23,24 +22,17 @@ class MainView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(tokenProvider);
-
     return ref.watch(pocketItemProvider).when(
           data: (items) {
-            return Container(
-              child: ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    child: ItemView(item: items[index]),
-                  );
-                },
-              ),
+            return ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ItemView(item: items[index]);
+              },
             );
           },
-          error: (error, stackTrace) =>
-              Container(child: Text(error.toString())),
-          loading: () => Container(child: CircularProgressIndicator()),
+          error: (error, stackTrace) => Text(error.toString()),
+          loading: () => const Center(child: CircularProgressIndicator()),
         );
   }
 }
@@ -48,12 +40,10 @@ class MainView extends HookConsumerWidget {
 class ItemView extends HookConsumerWidget {
   final Item item;
 
-  ItemView({Key? key, required this.item}) : super(key: key);
+  const ItemView({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final t = ref.watch(tokenProvider);
-
     return InkWell(
       onTap: () async {
         await launchUrlString(
@@ -83,9 +73,9 @@ class ItemView extends HookConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        item.resolvedTitle.isNotEmpty
-                            ? item.resolvedTitle
-                            : item.givenTitle ?? '',
+                        item.resolvedTitle != null
+                            ? item.resolvedTitle!
+                            : item.givenUrl,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.titleMedium,
@@ -116,14 +106,6 @@ class ItemView extends HookConsumerWidget {
                 },
                 icon: const Icon(
                   Icons.archive,
-                  size: 24.0,
-                  color: Colors.black54,
-                ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.share,
                   size: 24.0,
                   color: Colors.black54,
                 ),

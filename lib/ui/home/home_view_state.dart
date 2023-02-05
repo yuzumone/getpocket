@@ -1,3 +1,1 @@
-abstract class HomeViewState {
-  
-}
+abstract class HomeViewState {}

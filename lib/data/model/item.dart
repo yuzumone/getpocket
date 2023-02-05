@@ -25,7 +25,7 @@ class Item {
   @JsonKey(name: 'sort_id')
   int sortId;
   @JsonKey(name: 'resolved_title')
-  String resolvedTitle;
+  String? resolvedTitle;
   @JsonKey(name: 'resolved_url')
   String resolvedUrl;
   String excerpt;
