@@ -73,7 +73,7 @@ class ItemView extends HookConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        item.resolvedTitle != null
+                        item.resolvedTitle?.isNotEmpty ?? false
                             ? item.resolvedTitle!
                             : item.givenUrl,
                         maxLines: 2,
