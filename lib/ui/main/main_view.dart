@@ -24,11 +24,14 @@ class MainView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ref.watch(pocketItemProvider).when(
           data: (items) {
-            return ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (BuildContext context, int index) {
-                return ItemView(item: items[index]);
-              },
+            return RefreshIndicator(
+              onRefresh: () => ref.refresh(pocketItemProvider.future),
+              child: ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ItemView(item: items[index]);
+                },
+              ),
             );
           },
           error: (error, stackTrace) => Text(error.toString()),
