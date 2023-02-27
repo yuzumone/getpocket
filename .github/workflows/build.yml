@@ -24,7 +24,7 @@ jobs:
       - run: echo "storeFile=`pwd`/keystore.jks" >> android/key.properties
       - run: echo "storePassword=${{secrets.ANDROID_RELEASE_STORE_PASSWORD}}" >> android/key.properties
       - name: build apk
-        run: flutter build apk --release --build-number ${GITHUB_RUN_NUMBER} --dart-define=POCKET_CONSUMER_KEY=${secrets.POCKET_CONSUMER_KEY} --dart-define=POCKET_REDIRECT_URI=${secrets.POCKET_REDIRECT_URI}
+        run: flutter build apk --release --build-number ${GITHUB_RUN_NUMBER} --dart-define=POCKET_CONSUMER_KEY=${{secrets.POCKET_CONSUMER_KEY}} --dart-define=POCKET_REDIRECT_URI=${{secrets.POCKET_REDIRECT_URI}}
       - name: deploygate
         run: |
           curl \
