@@ -50,7 +50,7 @@ class ItemView extends HookConsumerWidget {
     return InkWell(
       onTap: () async {
         await launchUrlString(
-          item.resolvedUrl,
+          item.givenUrl,
           mode: LaunchMode.externalApplication,
         );
       },
@@ -84,9 +84,9 @@ class ItemView extends HookConsumerWidget {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Visibility(
-                        visible: item.excerpt.isNotEmpty,
+                        visible: item.excerpt != null,
                         child: Text(
-                          item.excerpt,
+                          item.excerpt ?? '',
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
