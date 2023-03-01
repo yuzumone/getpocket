@@ -27,19 +27,19 @@ class Item {
   @JsonKey(name: 'resolved_title')
   String? resolvedTitle;
   @JsonKey(name: 'resolved_url')
-  String resolvedUrl;
-  String excerpt;
+  String? resolvedUrl;
+  String? excerpt;
   @JsonKey(name: 'is_article')
-  String isAaricle;
+  String? isAaricle;
   @JsonKey(name: 'is_index')
-  String isIndex;
+  String? isIndex;
   @JsonKey(name: 'has_video')
-  String hasVideo;
+  String? hasVideo;
   @JsonKey(name: 'has_image')
-  String hasImage;
+  String? hasImage;
   @JsonKey(name: 'word_count')
-  String wordCount;
-  String lang;
+  String? wordCount;
+  String? lang;
   @JsonKey(name: 'domain_metadata')
   Map<String, dynamic>? domainMetadata;
   @JsonKey(name: 'top_image_url')
