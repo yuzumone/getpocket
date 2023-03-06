@@ -26,8 +26,17 @@ jobs:
       - name: build apk
         run: flutter build apk --release --build-number ${GITHUB_RUN_NUMBER} --dart-define=POCKET_CONSUMER_KEY=${{secrets.POCKET_CONSUMER_KEY}} --dart-define=POCKET_REDIRECT_URI=${{secrets.POCKET_REDIRECT_URI}}
       - name: deploygate
+        if: ${{ !contains(github.head_ref, 'release') }}
         run: |
           curl \
           -H "Authorization: token ${{secrets.DEPLOYGATE_API_KEY}}" \
           -F "file=@build/app/outputs/flutter-apk/app-release.apk" \
+          "https://deploygate.com/api/users/yuzumone/apps"
+      - name: deploygate and update distribution
+        if: ${{ contains(github.head_ref, 'release') }}
+        run: |
+          curl \
+          -H "Authorization: token ${{secrets.DEPLOYGATE_API_KEY}}" \
+          -F "file=@build/app/outputs/flutter-apk/app-release.apk" \
+          --form-string "distribution_key=01f49cf8bc4bb409581290648c3303df8a47385f" \
           "https://deploygate.com/api/users/yuzumone/apps"
