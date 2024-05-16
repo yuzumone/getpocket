@@ -18,7 +18,7 @@ final pocketItemProvider = FutureProvider.autoDispose<List<Item>>((ref) async {
 });
 
 class MainView extends HookConsumerWidget {
-  const MainView({Key? key}) : super(key: key);
+  const MainView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -43,7 +43,7 @@ class MainView extends HookConsumerWidget {
 class ItemView extends HookConsumerWidget {
   final Item item;
 
-  const ItemView({Key? key, required this.item}) : super(key: key);
+  const ItemView({super.key, required this.item});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
