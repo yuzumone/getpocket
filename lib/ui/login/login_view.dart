@@ -4,7 +4,7 @@ import 'package:getpocket/data/repository/preference_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class LoginView extends HookConsumerWidget {
-  const LoginView({Key? key}) : super(key: key);
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
