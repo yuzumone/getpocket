@@ -24,6 +24,7 @@ class HomeView extends HookConsumerWidget {
           data: (token) {
             return Scaffold(
                 appBar: AppBar(
+                  backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                   title: const Text('getpocket'),
                 ),
                 body: token == null ? const LoginView() : const MainView());
