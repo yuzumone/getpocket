@@ -10,7 +10,7 @@ jobs:
     if: github.event.pull_request.merged == true && contains(github.head_ref, 'release')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: set version
         id: tag
         run: |
@@ -20,7 +20,7 @@ jobs:
         run: |
           cat CHANGELOG.md | sed -n -e '1,/^$/p' | sed -e '/^#/d' -e '/^$/d' > ${{ github.workspace }}-note.txt
       - name: create release note
-        uses: softprops/action-gh-release@v0.1.14
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.tag.outputs.tag }}
           name: ${{ steps.tag.outputs.tag }}
