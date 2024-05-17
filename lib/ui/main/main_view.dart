@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:getpocket/data/model/item.dart';
 import 'package:getpocket/data/repository/pocket_repository.dart';
 import 'package:getpocket/data/repository/preference_repository.dart';
@@ -53,6 +54,7 @@ class ItemView extends HookConsumerWidget {
           item.givenUrl,
           mode: LaunchMode.externalApplication,
         );
+        HapticFeedback.mediumImpact();
       },
       child: Column(
         children: [
@@ -102,6 +104,7 @@ class ItemView extends HookConsumerWidget {
             children: [
               IconButton(
                 onPressed: () async {
+                  HapticFeedback.mediumImpact();
                   final repo = ref.read(pocketRepositoryProvider);
                   final token =
                       await ref.read(prefeneceRepositoryProvider).getToken();
