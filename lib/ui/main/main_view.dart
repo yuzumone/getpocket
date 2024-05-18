@@ -19,7 +19,9 @@ final pocketItemProvider = FutureProvider.autoDispose<List<Item>>((ref) async {
 });
 
 class MainView extends HookConsumerWidget {
-  const MainView({super.key});
+  final ScrollController scrollController;
+
+  const MainView({super.key, required this.scrollController});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,6 +30,7 @@ class MainView extends HookConsumerWidget {
             return RefreshIndicator(
               onRefresh: () => ref.refresh(pocketItemProvider.future),
               child: ListView.builder(
+                controller: scrollController,
                 itemCount: items.length,
                 itemBuilder: (BuildContext context, int index) {
                   return ItemView(item: items[index]);
