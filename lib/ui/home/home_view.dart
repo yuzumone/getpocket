@@ -15,6 +15,7 @@ class HomeView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final scrollController = ScrollController();
     return ref.watch(tokenProvider).when(
           loading: () {
             return const Scaffold(
@@ -26,8 +27,18 @@ class HomeView extends HookConsumerWidget {
                 appBar: AppBar(
                   backgroundColor: Theme.of(context).colorScheme.inversePrimary,
                   title: const Text('getpocket'),
+                  flexibleSpace: GestureDetector(onTap: () {
+                    final position = scrollController.position.minScrollExtent;
+                    scrollController.animateTo(
+                      position,
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.linear,
+                    );
+                  }),
                 ),
-                body: token == null ? const LoginView() : const MainView());
+                body: token == null
+                    ? const LoginView()
+                    : MainView(scrollController: scrollController));
           },
           error: (error, stackTrace) => Scaffold(
             appBar: AppBar(
