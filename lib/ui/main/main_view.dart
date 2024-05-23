@@ -49,6 +49,12 @@ class ItemView extends HookConsumerWidget {
 
   const ItemView({super.key, required this.item});
 
+  String getHost(String? url) {
+    if (url == null) return "";
+    final uri = Uri.parse(url);
+    return uri.host;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
@@ -62,7 +68,7 @@ class ItemView extends HookConsumerWidget {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
             child: Row(
               children: [
                 item.topImageUrl != null
@@ -102,24 +108,34 @@ class ItemView extends HookConsumerWidget {
               ],
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              IconButton(
-                onPressed: () async {
-                  HapticFeedback.mediumImpact();
-                  final repo = ref.read(pocketRepositoryProvider);
-                  final token =
-                      await ref.read(prefeneceRepositoryProvider).getToken();
-                  await repo.archivePocketItems([item], token!);
-                },
-                icon: const Icon(
-                  Icons.archive,
-                  size: 24.0,
-                  color: Colors.black54,
+          Container(
+            padding: const EdgeInsets.only(left: 16.0, right: 8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    getHost(item.resolvedUrl),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 ),
-              ),
-            ],
+                IconButton(
+                  onPressed: () async {
+                    HapticFeedback.mediumImpact();
+                    final repo = ref.read(pocketRepositoryProvider);
+                    final token =
+                        await ref.read(prefeneceRepositoryProvider).getToken();
+                    await repo.archivePocketItems([item], token!);
+                  },
+                  icon: const Icon(
+                    Icons.archive,
+                    size: 24.0,
+                    color: Colors.black54,
+                  ),
+                ),
+              ],
+            ),
           )
         ],
       ),
